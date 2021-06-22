@@ -3,7 +3,7 @@ import Vuex, { StoreOptions } from 'vuex';
 import { RootState } from './types';
 import { profile } from './profile/index';
 import createPersistedState from 'vuex-persistedstate'
-import * as Cookie from 'js-cookie'
+
 
 
 Vue.use(Vuex);
@@ -19,8 +19,8 @@ const store: StoreOptions<RootState> = {
     plugins: [
         createPersistedState({
             paths: ['profile', 'isLogged', 'profile.<nameOfThePropretyInState>'],
-            getState: (key) => Cookie.getJSON(key), 
-            setState: (key, state) => Cookie.set(key, state, { expires: 1, secure: false })
+            getState: (key) => localStorage.getItem(key), 
+            setState: (key, state) => localStorage.setItem(key,  JSON.stringify(state))
         })
      ]
 };
